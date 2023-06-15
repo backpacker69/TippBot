@@ -19,6 +19,14 @@ logger = logging.getLogger("bot-db")
 logger.info('testing')
 
 
+def get_total_user_balance():
+    total_user_balance = 0
+    for user in User.select().where(User.balance > 0):
+        total_user_balance += user.balance
+
+    return total_user_balance
+
+
 def get_user_by_id(user_id):
     try:
         user = User.get(user_id=user_id)

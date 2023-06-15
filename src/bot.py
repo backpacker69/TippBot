@@ -186,7 +186,14 @@ def setup_bot():
                                  "No tips yet ! why not be the first to tip ? :thinking: "
                              ]})
 
-    return [help_feature, balance_feature, deposit_feature, tip_feature, withdraw_feature, top_feature]
+    audit_feature = BotFeature(command="AUDIT",
+                               command_keywords=["$audit"],
+                               response_templates=
+                               {"success": [
+                                 "Wallet balance: %.6f, Total User Balance: %.6f"
+                               ]})
+
+    return [help_feature, balance_feature, deposit_feature, tip_feature, withdraw_feature, top_feature, audit_feature]
 
 
 bot_features = setup_bot()
@@ -386,6 +393,12 @@ async def on_message(message):
                 elif top_user['index'] == 2:
                     response += ' :clap: '
             post_response(message, [response])
+
+    # $audit
+    if message.content.startswith('$audit'):
+        wallet_balance = wallet.get_wallet_balance()
+        total_user_balance = db.get_total_user_balance()
+        post_response(message, feat.response_templates["success"] % (wallet_balance, total_user_balance))
 
 
 client.run(BOT_TOKEN)

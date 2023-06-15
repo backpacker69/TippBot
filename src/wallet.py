@@ -42,6 +42,11 @@ def create_or_fetch_user(user_id, user_name):
         return user
 
 
+def get_wallet_balance():
+    rpc_connection = connect()
+    return rpc_connection.getbalance()
+
+
 def get_balance(user_id: int) -> float:
     logger.info('getting balance for user %s', user_id)
     user = db.get_user_by_id(user_id)
