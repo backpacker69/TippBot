@@ -21,4 +21,4 @@ else:
     BOT_ID = environ.get("BOT_ID", "")
     BOT_TOKEN = environ.get("BOT_TOKEN", "")
     DB_NAME = environ.get("DB_NAME", "tippbot.db")
-    FOUNDATION_ADDR = environ.get("FOUNDATION_ADDR", "p92W3t7YkKfQEPDb7cG9jQ6iMh7cpKLvwK")
+    FOUNDATION_ADDR = environ.get("FOUNDATION_ADDR", "p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre")
