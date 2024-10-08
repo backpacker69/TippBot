@@ -190,7 +190,7 @@ def setup_bot():
                                command_keywords=["$audit"],
                                response_templates=
                                {"success": [
-                                 "Wallet balance: %.6f, Total User Balance: %.6f"
+                                 "Wallet balance: %.6f, Total User Balance: %.6f, Block Count: %d, Peercoin version: %s"
                                ]})
 
     return [help_feature, balance_feature, deposit_feature, tip_feature, withdraw_feature, top_feature, audit_feature]
@@ -397,9 +397,9 @@ async def on_message(message):
 
     # $audit
     if message.content.startswith('$audit'):
-        wallet_balance = wallet.get_wallet_balance()
+        audit_info = wallet.get_audit_info()
         total_user_balance = db.get_total_user_balance()
-        post_response(message, feat.response_templates["success"] % (wallet_balance, total_user_balance))
+        post_response(message, feat.response_templates["success"] % (audit_info['balance'], total_user_balance, audit_info['blockcount'], audit_info['fullversion']))
 
 
 client.run(BOT_TOKEN)
